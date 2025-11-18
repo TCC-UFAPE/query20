@@ -2,7 +2,7 @@
 
 ## Descrição
 
-A **Query19** é um script Python que combina as funcionalidades das queries 7 e 10 para realizar uma análise abrangente das vulnerabilidades do projeto **systemd**, integrando dados de documentação com informações detalhadas dos commits do GitHub.
+A **Query20** é um script Python que combina as funcionalidades das queries 7 e 10 para realizar uma análise abrangente das vulnerabilidades do projeto **systemd**, integrando dados de documentação com informações detalhadas dos commits do GitHub.
 
 ## Funcionalidades
 
