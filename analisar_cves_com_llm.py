@@ -407,7 +407,7 @@ if __name__ == "__main__":
     GROQ_MODELS = [
         "moonshotai/kimi-k2-instruct-0905",
         "qwen/qwen3-32b",
-        "gemma2-9b-it",
+        # "gemma2-9b-it",
         "meta-llama/Llama-Guard-4-12B",
         "llama-3.3-70b-versatile",
         "llama-3.1-8b-instant",
