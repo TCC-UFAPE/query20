@@ -87,7 +87,7 @@ GITHUB_TOKEN = "seu_token_aqui"
 ## Como Usar
 
 ```bash
-python query11.py
+python Query20.py
 ```
 
 ## Fluxo de Execução
@@ -122,9 +122,9 @@ Ao final da execução, o script exibe:
 - Total de arquivos modificados
 - Tamanho total dos arquivos processados
 
-## Diferencial da Query11
+## Diferencial da Query20
 
-A Query11 se destaca por:
+A Query20 se destaca por:
 - ✅ **Integração completa** entre documentação textual e código fonte
 - ✅ **Análise focada** no projeto systemd
 - ✅ **Métricas detalhadas** de tamanho e complexidade
