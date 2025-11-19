@@ -2,13 +2,45 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
+import sys
+import shutil
+import tempfile
 
 EXCEL_FILE = 'Relatorio_Analise_CVEs_LLM.xlsx'
 OUT_DIR = 'charts'
 os.makedirs(OUT_DIR, exist_ok=True)
 
-# Ler todas as abas com header=1
-xls = pd.read_excel(EXCEL_FILE, sheet_name=None, header=1, engine='openpyxl')
+# Resolve caminho relativo ao diretório do script se necessário
+base_dir = os.path.dirname(os.path.abspath(__file__))
+if not os.path.isabs(EXCEL_FILE):
+    candidate = os.path.join(base_dir, EXCEL_FILE)
+    if os.path.exists(candidate):
+        EXCEL_PATH = candidate
+    else:
+        EXCEL_PATH = EXCEL_FILE
+else:
+    EXCEL_PATH = EXCEL_FILE
+
+# Ler todas as abas com header=1, tratando PermissionError para dar feedback útil
+try:
+    xls = pd.read_excel(EXCEL_PATH, sheet_name=None, header=1, engine='openpyxl')
+except FileNotFoundError:
+    print(f"Arquivo não encontrado: '{EXCEL_PATH}'")
+    print("Coloque o arquivo na mesma pasta do script ou informe o caminho absoluto.")
+    sys.exit(1)
+except PermissionError:
+    print(f"Permissão negada ao abrir '{EXCEL_PATH}'. Verifique se está aberto no Excel e feche-o.")
+    print('Tentando abrir uma cópia temporária do arquivo...')
+    try:
+        tmp = tempfile.NamedTemporaryFile(delete=False, suffix='.xlsx')
+        tmp.close()
+        shutil.copy2(EXCEL_PATH, tmp.name)
+        xls = pd.read_excel(tmp.name, sheet_name=None, header=1, engine='openpyxl')
+        print('Leitura bem-sucedida a partir da cópia temporária.')
+    except Exception as e:
+        print('Falha ao abrir cópia temporária:', repr(e))
+        print('Feche o arquivo no Excel (ou conceda permissão de leitura) e tente novamente.')
+        sys.exit(1)
 
 frames = []
 for sheet_name, df in xls.items():
